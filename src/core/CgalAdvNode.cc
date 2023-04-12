@@ -30,13 +30,12 @@
 #include "Builtins.h"
 #include "Children.h"
 #include "Parameters.h"
-#include "PolySet.h"
 #include <sstream>
-#include <assert.h>
+#include <cassert>
 #include <boost/assign/std/vector.hpp>
 using namespace boost::assign; // bring 'operator+=()' into scope
 
-static std::shared_ptr<AbstractNode> builtin_minkowski(const ModuleInstantiation *inst, Arguments arguments, Children children)
+static std::shared_ptr<AbstractNode> builtin_minkowski(const ModuleInstantiation *inst, Arguments arguments, const Children& children)
 {
   auto node = std::make_shared<CgalAdvNode>(inst, CgalAdvType::MINKOWSKI);
 
@@ -46,7 +45,7 @@ static std::shared_ptr<AbstractNode> builtin_minkowski(const ModuleInstantiation
   return children.instantiate(node);
 }
 
-static std::shared_ptr<AbstractNode> builtin_hull(const ModuleInstantiation *inst, Arguments arguments, Children children)
+static std::shared_ptr<AbstractNode> builtin_hull(const ModuleInstantiation *inst, Arguments arguments, const Children& children)
 {
   auto node = std::make_shared<CgalAdvNode>(inst, CgalAdvType::HULL);
 
@@ -56,7 +55,7 @@ static std::shared_ptr<AbstractNode> builtin_hull(const ModuleInstantiation *ins
   return children.instantiate(node);
 }
 
-static std::shared_ptr<AbstractNode> builtin_fill(const ModuleInstantiation *inst, Arguments arguments, Children children)
+static std::shared_ptr<AbstractNode> builtin_fill(const ModuleInstantiation *inst, Arguments arguments, const Children& children)
 {
   auto node = std::make_shared<CgalAdvNode>(inst, CgalAdvType::FILL);
 
@@ -65,7 +64,7 @@ static std::shared_ptr<AbstractNode> builtin_fill(const ModuleInstantiation *ins
   return children.instantiate(node);
 }
 
-static std::shared_ptr<AbstractNode> builtin_resize(const ModuleInstantiation *inst, Arguments arguments, Children children)
+static std::shared_ptr<AbstractNode> builtin_resize(const ModuleInstantiation *inst, Arguments arguments, const Children& children)
 {
   auto node = std::make_shared<CgalAdvNode>(inst, CgalAdvType::RESIZE);
 

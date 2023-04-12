@@ -31,9 +31,9 @@
 #include "Polygon2d.h"
 #include "printutils.h"
 #include "libsvg/libsvg.h"
+#include "libsvg/svgpage.h"
 #include "ClipperUtils.h"
 #include "AST.h"
-#include "boost-utils.h"
 
 namespace {
 
@@ -191,7 +191,7 @@ Polygon2d *import_svg(double fn, double fs, double fa,
     std::vector<const Polygon2d *> polygons;
     for (const auto& shape_ptr : *shapes) {
       if (!shape_ptr->is_excluded()) {
-        Polygon2d *poly = new Polygon2d();
+        auto *poly = new Polygon2d();
         const auto& s = *shape_ptr;
         for (const auto& p : s.get_path_list()) {
           Outline2d outline;
@@ -209,7 +209,7 @@ Polygon2d *import_svg(double fn, double fs, double fa,
     libsvg_free(shapes);
     return ClipperUtils::apply(polygons, ClipperLib::ctUnion);
   } catch (const std::exception& e) {
-    LOG(message_group::Error, Location::NONE, "", "%1$s, import() at line %2$d", e.what(), loc.firstLine());
+    LOG(message_group::Error, "%1$s, import() at line %2$d", e.what(), loc.firstLine());
     return new Polygon2d();
   }
 }

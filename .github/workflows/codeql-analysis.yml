@@ -38,6 +38,9 @@ jobs:
     - name: Submodules
       run: git submodule update --init --recursive
 
+    - name: Manifold patches
+      run: ( cd submodules/manifold && git apply thrust.diff )
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
@@ -51,7 +54,7 @@ jobs:
     - name: Install dependencies
       run: ./scripts/travis-ci-before-install-linux.sh bionic
     - name: Dependency fixup
-      run: sudo apt-get install qt5-default gettext
+      run: sudo apt-get install gettext
     - name: Build
       run: ./scripts/github-ci.sh build
 
